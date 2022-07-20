@@ -2,6 +2,7 @@ package testcase;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import base.BaseTest;
 
@@ -9,6 +10,7 @@ import base.BaseTest;
 
 public class LoginPageTest extends BaseTest {
 	
+	SoftAssert softAssert = new SoftAssert();
 	@Test
 	public void loginTest() throws InterruptedException {
 		
