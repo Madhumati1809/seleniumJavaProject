@@ -17,7 +17,7 @@ public class LoginPageTest extends BaseTest {
 	@Test
 	public void loginTest() throws InterruptedException {
 		
-		String username="swamimadhumati@gmail.com";
+		String username="";
 		String password="";
 
 		driver.findElement(By.xpath(loc.getProperty("LoginElement")));
