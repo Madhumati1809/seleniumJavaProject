@@ -16,22 +16,30 @@ public class LoginPageTest extends BaseTest {
 
 	@Test
 	public void loginTest() throws InterruptedException {
+		
+		String username="swamimadhumati@gmail.com";
+		String password="";
 
 		driver.findElement(By.xpath(loc.getProperty("LoginElement")));
 		driver.findElement(By.xpath(loc.getProperty("LoginElement"))).click();
-		driver.findElement(By.xpath(loc.getProperty("username"))).sendKeys("swamimadhumati@gmail.com");
-		driver.findElement(By.xpath(loc.getProperty("password"))).sendKeys("Tatu@12345");
-		String windowHandle=driver.getWindowHandle();
-		System.out.println(windowHandle);
-		driver.findElement(By.xpath(loc.getProperty("LoginButton"))).click();
-
-		Thread.sleep(10000);
-
-		String username_error_color=driver.findElement(By.xpath(loc.getProperty("username"))).getCssValue("border-top-color");
-		if(username_error_color.equals(loc.getProperty("error_color"))) {
-			System.out.println(username_error_color);
-			softAssert.assertEquals(username_error_color,loc.getProperty("error_color"));
-			softAssert.assertAll();
+		driver.findElement(By.xpath(loc.getProperty("username"))).sendKeys(username);		
+		driver.findElement(By.xpath(loc.getProperty("password"))).sendKeys(password);
+		
+		if(username.isEmpty()) {
+			driver.findElement(By.xpath(loc.getProperty("LoginButton"))).click();
+			Thread.sleep(5000);
+			String error_color=driver.findElement(By.xpath(loc.getProperty("username"))).getCssValue("border-top-color");
+			if(error_color.equals(loc.getProperty("error_color"))) {
+				String error_msg=driver.findElement(By.xpath(loc.getProperty("username_err_ele"))).getText();
+				softAssert.assertEquals(error_msg,loc.getProperty("user_err_msg"));
+			}
+		}else if(password.isEmpty()){
+			driver.findElement(By.xpath(loc.getProperty("LoginButton"))).click();
+			Thread.sleep(5000);
+			String error_msg=driver.findElement(By.xpath(loc.getProperty("pass_error_msg_ele"))).getText();
+			softAssert.assertEquals(error_msg,loc.getProperty("pass_err_msg"));
+		}else {
+			driver.findElement(By.xpath(loc.getProperty("LoginButton"))).click();
 		}
 
 
